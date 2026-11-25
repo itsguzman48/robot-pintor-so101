@@ -1,10 +1,10 @@
 # Robot pintor SO-101: del prompt al papel
 
+> Proyecto presentado en el **Hackathon LeRobot Bilbao II** (Physical AI Hackathon, La Perrera, 20-22 nov 2026) · [Ficha del equipo CapillaSixt.IA](https://hackathon.manyagents.es/equipos/capillasixt-ia)
+
 Escribes en una web lo que quieres ("quiero una casa") o subes una imagen. La IA te propone **4 bocetos**, eliges uno y el brazo robótico **SO-101** (LeRobot) lo dibuja en un folio con rotulador, a **uno o dos colores**.
 
-Proyecto del equipo **CapillaSixt.IA** en el **Hackathon LeRobot Bilbao II, Physical AI Hackathon** (La Perrera, Bilbao, 20-22 nov 2026).
-
-![Demo: de la web al dibujo en papel](media/demo.gif)
+<p align="center"><img src="media/robot-dibujando.gif" alt="El brazo SO-101 dibujando con rotulador" width="400"></p>
 
 ## Equipo
 
@@ -12,7 +12,7 @@ Proyecto del equipo **CapillaSixt.IA** en el **Hackathon LeRobot Bilbao II, Phys
 |---|---|
 | **Íñigo Guzmán** (autor de este repo) | Desarrollo de la web, conexión web → brazo y montaje del vídeo |
 | **Ander Mont** | Diseño mecánico y prototipado del cabezal de cuatro colores en Blender (más de 30 versiones) y montaje en el brazo. Repo propio: [so101-four-color-pen-holder](https://github.com/andermont/so101-four-color-pen-holder) |
-| **Alfred** | Calibración del brazo y pruebas punto a punto sobre la hoja, y el software del robot: servidor, paso de SVG a trazos, planificación del movimiento y cambio de color |
+| **Alfred Gabriel** | Calibración del brazo y pruebas punto a punto sobre la hoja, y el software del robot: servidor, paso de SVG a trazos, planificación del movimiento y cambio de color |
 
 La idea (un robot que dibuja lo que le pides con lenguaje natural, con una persona participando en la demo) salió entre todo el equipo.
 
@@ -49,6 +49,8 @@ robot-pintor-so101/
 - **Vídeo:** montaje del vídeo de la demo.
 
 ## La web
+
+<p align="center"><img src="media/web-demo.gif" alt="La web: del prompt al boceto que dibujará el brazo" width="720"></p>
 
 | Inicio, con selector de 1 o 2 colores | Boceto elegido, listo para dibujar |
 |---|---|
@@ -105,6 +107,10 @@ python servidor_robot.py --simular
 
 ## Resultados
 
+**La demo en el hackathon** (grabada con el móvil): de la web al papel.
+
+<p align="center"><img src="media/demo.gif" alt="Demo en el hackathon" width="300"></p>
+
 | Dibujo a dos colores | Dibujos finales |
 |---|---|
 | ![Dibujo](media/dibujo-multicolor.jpg) | ![Resultados](media/resultados.jpg) |
@@ -142,7 +148,7 @@ El código está en [`robot/`](robot/) y la explicación técnica completa, en [
 Stack: SO-101 con servos Feetech STS3215 · LeRobot 0.7 · Python (numpy, scipy, svgelements) · HTML/JS · LLMs vía API (Groq, Gemini, OpenRouter, Claude).
 
 ## Créditos
-Proyecto en equipo de **CapillaSixt.IA**: Íñigo Guzmán, Ander Mont y Alfred.
+Proyecto en equipo de **CapillaSixt.IA**: Íñigo Guzmán López, Alfred Gabriel, Nicolás Pascual, Ander Mont y Jon García.
 
 Tecnología: [SO-101 / SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100) · [LeRobot](https://github.com/huggingface/lerobot)
 
