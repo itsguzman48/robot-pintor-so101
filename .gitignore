@@ -4,3 +4,7 @@ desktop.ini
 .env
 *.tmp
 publicar.ps1
+media/diseno-blender.gif
+__pycache__/
+*.pyc
+trabajos/

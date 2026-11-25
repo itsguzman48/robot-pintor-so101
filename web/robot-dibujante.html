@@ -115,6 +115,13 @@ button { font: inherit; color: inherit; }
   font-size: 0.93rem; color: var(--crema);
 }
 .ejemplos button:hover { border-color: var(--ocre); color: #fff; }
+.colores { display: inline-flex; gap: 4px; margin: 0 0 14px; padding: 4px; border-radius: 999px; background: rgba(239, 231, 214, 0.1); }
+.colores button {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 0; border-radius: 999px;
+  background: none; cursor: pointer; font-size: 0.93rem; color: rgba(239, 231, 214, 0.8);
+}
+.colores button[aria-pressed="true"] { background: var(--papel); color: var(--texto); font-weight: 600; }
+.colores .muestra { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
 #estado { min-height: 1.5em; margin: 22px 0 0; color: rgba(239, 231, 214, 0.75); font-size: 0.95rem; }
 #estado.error { color: #ffb59f; font-weight: 600; }
 #estado.ok { color: #c9dfb4; }
@@ -140,7 +147,7 @@ button { font: inherit; color: inherit; }
 }
 .tarjeta:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 1px 2px rgba(34, 31, 27, 0.06), 0 22px 36px -18px rgba(34, 31, 27, 0.4); }
 .tarjeta svg { position: absolute; inset: 11%; width: 78%; height: 78%; }
-.tarjeta svg * { fill: none !important; stroke: var(--texto) !important; stroke-width: 1.35 !important; stroke-linecap: round; stroke-linejoin: round; }
+.tarjeta svg * { fill: none !important; stroke: var(--texto); stroke-width: 1.35 !important; stroke-linecap: round; stroke-linejoin: round; }
 .tarjeta .numero {
   position: absolute; left: 12px; bottom: 9px;
   font-size: 0.8rem; color: var(--gris-claro);
@@ -189,7 +196,7 @@ dialog::backdrop { background: rgba(23, 46, 89, 0.7); backdrop-filter: blur(3px)
 }
 #lienzo { position: absolute; inset: 7%; }
 #lienzo svg { width: 100%; height: 100%; display: block; overflow: visible; }
-#lienzo svg * { fill: none !important; stroke: var(--texto) !important; stroke-width: 1.1 !important; stroke-linecap: round; stroke-linejoin: round; }
+#lienzo svg * { fill: none !important; stroke: var(--texto); stroke-width: 1.1 !important; stroke-linecap: round; stroke-linejoin: round; }
 .lado-info { display: flex; flex-direction: column; padding: 28px 28px 24px; }
 .lado-info .cerrar { align-self: flex-end; width: 40px; height: 40px; padding: 0; margin: -10px -10px 4px 0; border-radius: 50%; font-size: 1.5rem; line-height: 1; }
 .lado-info h3 { margin: 0; font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 2.4rem; line-height: 1.05; }
@@ -200,6 +207,11 @@ dialog::backdrop { background: rgba(23, 46, 89, 0.7); backdrop-filter: blur(3px)
 .acciones .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .acciones .boton { width: 100%; }
 .aviso { margin: 10px 0 0; font-size: 0.9rem; color: var(--gris); }
+.parar { border: 1px solid var(--linea); background: var(--papel); color: var(--sinopia); }
+.parar:hover:not(:disabled) { background: #f8ece7; border-color: var(--sinopia); }
+.progreso { height: 6px; margin-top: 12px; border-radius: 999px; background: #ece7dc; overflow: hidden; }
+.progreso[hidden] { display: none; }
+.progreso > div { width: 0; height: 100%; border-radius: 999px; background: var(--ocre); transition: width 0.45s ease-out; }
 
 /* ===== Ajustes ===== */
 #panelAjustes {
@@ -232,6 +244,30 @@ footer p { margin: 0; max-width: 70ch; }
   .caja .boton { flex: 1; }
   .zona { padding: 36px 18px 16px; }
 }
+/* ===== Desde imagen ===== */
+#panelImagen { width: min(980px, calc(100vw - 32px)); max-height: calc(100vh - 32px); border-radius: 20px; overflow: auto; background: var(--papel); }
+.img-cuerpo { padding: 24px; }
+.img-cabeza { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.img-cabeza h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 2rem; }
+.img-modos { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: #efeae0; }
+.img-modos button { padding: 6px 14px; border: 0; border-radius: 999px; background: none; cursor: pointer; font-size: 0.93rem; color: var(--gris); }
+.img-modos button[aria-pressed="true"] { background: var(--lapis); color: var(--crema); font-weight: 600; }
+.img-rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+@media (max-width: 760px) { .img-rejilla { grid-template-columns: 1fr; } }
+.img-marco { position: relative; aspect-ratio: 4 / 3; border-radius: 10px; background: #f1ede5; overflow: hidden; display: grid; place-items: center; text-align: center; color: var(--gris); padding: 0; }
+.img-marco img, .img-marco video { max-width: 100%; max-height: 100%; display: block; }
+.img-marco img[hidden], .img-marco video[hidden] { display: none; }
+.img-marco svg { width: 100%; height: 100%; display: block; }
+.img-marco svg * { fill: none !important; stroke-width: 1.1 !important; stroke-linecap: round; stroke-linejoin: round; }
+.img-marco.arrastrando { outline: 3px dashed var(--ocre); outline-offset: -8px; }
+.img-botones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.img-botones .boton { height: 42px; padding: 0 16px; }
+.img-ajuste { margin-top: 10px; font-size: 0.9rem; }
+.img-ajuste label { display: flex; justify-content: space-between; font-weight: 600; }
+.img-ajuste input[type=range] { width: 100%; }
+.img-ajuste input[type=text] { width: 100%; padding: 8px 10px; border: 1px solid var(--linea); border-radius: 10px; }
+.img-nota { margin: 8px 0 0; color: var(--gris); font-size: 0.9rem; min-height: 1.3em; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .creacion .dibuja { stroke-dashoffset: 0; }
@@ -253,30 +289,30 @@ footer p { margin: 0; max-width: 70ch; }
   <!-- La creación, versión SO-101: el dedo humano y la pinza con el rotulador -->
   <svg class="creacion" viewBox="0 0 1000 230" aria-hidden="true">
 <g class="humano">
-
+  
   <path class="dibuja" pathLength="1" d="M0 92 C90 84 170 82 240 88 C290 92 330 100 368 110 C398 118 422 126 440 133 C454 139 460 147 456 153 C452 159 442 160 432 157 C414 152 396 148 378 147"/>
-
+  
   <path class="dibuja" pathLength="1" d="M378 147 C364 149 354 157 352 166 C350 175 342 181 332 180 C328 188 318 193 306 192 C300 198 290 201 278 200 C240 200 160 198 0 204"/>
   <path class="dibuja fino" pathLength="1" d="M352 166 C346 164 340 166 336 170"/>
   <path class="dibuja fino" pathLength="1" d="M332 180 C326 178 320 180 316 184"/>
-
+  
   <path class="dibuja fino" pathLength="1" d="M404 124 C407 131 406 139 402 146"/>
   <path class="dibuja fino" pathLength="1" d="M330 104 C338 116 340 130 336 144"/>
-
+  
 </g>
 <g class="robot">
-
+  
   <path class="dibuja" pathLength="1" d="M1000 98 L790 112 M1000 158 L790 144"/>
-
+  
   <rect class="dibuja" pathLength="1" x="728" y="104" width="62" height="48" rx="6"/>
   <circle class="dibuja" pathLength="1" cx="759" cy="128" r="12"/>
   <circle class="dibuja fino" pathLength="1" cx="759" cy="128" r="4"/>
-
+  
   <path class="dibuja" pathLength="1" d="M728 114 L680 114 C672 114 668 119 668 126 L668 130 C668 137 672 142 680 142 L728 142"/>
-
+  
   <path class="dibuja" pathLength="1" d="M668 118 L612 118 L600 124"/>
   <path class="dibuja" pathLength="1" d="M668 138 L620 138 L604 132 L600 128"/>
-
+  
   <rect class="dibuja" pathLength="1" x="560" y="120" width="96" height="16" rx="3"/>
   <path class="dibuja" pathLength="1" d="M560 122 L532 124 L524 128 L532 132 L560 134"/>
   <path class="dibuja fino" pathLength="1" d="M584 120 L584 136"/>
@@ -291,11 +327,16 @@ footer p { margin: 0; max-width: 70ch; }
 
     <div class="caja">
       <textarea id="peticion" rows="1" aria-label="Describe tu dibujo" placeholder="Un gato sentado mirando la luna"></textarea>
+      <button class="boton sutil" id="btnImagen" type="button" title="Subir una imagen o hacer una foto">Imagen</button>
       <button class="boton sutil" id="btnSorpresa" type="button">Sorpréndeme</button>
       <button class="boton oscuro" id="btnGenerar" type="button">Generar</button>
     </div>
 
-    <div class="debajo">
+    <div class="debajo" style="flex-direction: column; align-items: center;">
+      <div class="colores" id="colores" role="group" aria-label="Colores del dibujo">
+        <button type="button" data-colores="1" aria-pressed="true"><span class="muestra" style="background:#1f4fd8"></span>1 color</button>
+        <button type="button" data-colores="2" aria-pressed="false"><span class="muestra" style="background:#1f4fd8"></span><span class="muestra" style="background:#d62828; margin-left:-6px"></span>2 colores</button>
+      </div>
       <div class="ejemplos" id="ejemplos">
         <span>Prueba con</span>
         <button type="button">una casa con chimenea</button>
@@ -339,13 +380,70 @@ footer p { margin: 0; max-width: 70ch; }
       <div class="acciones">
         <button class="boton lapis" id="btnDibujar" type="button" autofocus disabled>Dibujar con el robot</button>
         <div class="fila">
-          <button class="boton claro" id="btnDescargar" type="button" disabled>Descargar SVG</button>
+          <button class="boton parar" id="btnParar" type="button" disabled>Parar</button>
           <button class="boton claro" id="btnVariaciones" type="button">Más variaciones</button>
         </div>
-        <p class="aviso" id="avisoRobot">Lo que ves es exactamente lo que trazará el brazo.</p>
+        <p class="aviso" id="avisoRobot" role="status">Lo que ves es exactamente lo que trazará el brazo.</p>
+        <div class="progreso" id="progreso" hidden><div id="barraProgreso"></div></div>
       </div>
     </div>
   </div>
+</dialog>
+
+<!-- Desde imagen -->
+<dialog id="panelImagen" aria-labelledby="tituloImagen">
+<div class="img-cuerpo">
+  <div class="img-cabeza">
+    <h2 id="tituloImagen">Desde una imagen</h2>
+    <button class="boton sutil" id="btnCerrarImagen" type="button">Cerrar</button>
+  </div>
+  <div class="img-modos" id="imgModos" role="group" aria-label="Tipo de imagen">
+    <button type="button" data-modo="copiar" aria-pressed="true">Imagen sencilla (sin IA)</button>
+    <button type="button" data-modo="ia" aria-pressed="false">Foto de una persona (IA)</button>
+  </div>
+  <p class="img-nota" id="imgExplicacion"></p>
+  <div class="img-rejilla">
+    <div>
+      <div class="img-marco" id="imgMarco">
+        <span id="imgVacio">Arrastra una imagen, pégala (Ctrl+V), súbela o usa la cámara.</span>
+        <img id="imgEntrada" alt="Imagen elegida" hidden>
+        <video id="imgVideo" autoplay playsinline muted hidden></video>
+      </div>
+      <div class="img-botones">
+        <button class="boton claro" id="btnImgSubir" type="button">Subir imagen</button>
+        <button class="boton claro" id="btnImgCamara" type="button">Usar la cámara</button>
+        <button class="boton lapis" id="btnImgFoto" type="button" hidden>Hacer la foto</button>
+        <input id="imgArchivo" type="file" accept="image/*" hidden>
+        <input id="imgArchivoCamara" type="file" accept="image/*" capture="user" hidden>
+      </div>
+    </div>
+    <div>
+      <div class="img-marco" id="imgSalida"><span>Aquí aparecerá el dibujo en líneas.</span></div>
+      <div id="imgAjustesCopiar">
+        <div class="img-ajuste">
+          <label for="imgUmbral"><span>Oscuridad de las líneas</span><span id="imgVUmbral">auto</span></label>
+          <input id="imgUmbral" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="img-ajuste">
+          <label for="imgMinimo"><span>Quitar trazos pequeños</span><span id="imgVMinimo">12</span></label>
+          <input id="imgMinimo" type="range" min="2" max="60" value="12">
+        </div>
+        <div class="img-ajuste"><label><span><input id="imgInvertir" type="checkbox"> Líneas claras sobre fondo oscuro</span></label></div>
+      </div>
+      <div id="imgAjustesIA" hidden>
+        <div class="img-ajuste">
+          <label for="imgModeloVision"><span>Modelo con visión (del proveedor de Ajustes)</span></label>
+          <input id="imgModeloVision" type="text" spellcheck="false">
+        </div>
+      </div>
+      <div class="img-botones">
+        <button class="boton claro" id="btnImgConvertir" type="button" disabled>Convertir</button>
+        <button class="boton lapis" id="btnImgUsar" type="button" disabled>Usar este dibujo</button>
+      </div>
+      <p class="img-nota" id="imgAviso"></p>
+    </div>
+  </div>
+</div>
 </dialog>
 
 <!-- Ajustes -->
@@ -384,8 +482,8 @@ footer p { margin: 0; max-width: 70ch; }
   </div>
   <div class="campo">
     <label for="urlRobot">URL del robot</label>
-    <input id="urlRobot" type="text" value="http://localhost:8000/draw" spellcheck="false">
-    <small>Recibe un POST con {"svg": "..."}.</small>
+    <input id="urlRobot" type="text" value="http://localhost:8000" spellcheck="false">
+    <small>Dirección base del servidor del robot (servidor_robot.py). La web añade /draw, /status y /stop.</small>
   </div>
   <div class="campo">
     <label for="sistema">System prompt</label>
@@ -408,11 +506,14 @@ var SYSTEM_PROMPT = [
   "2. Then draw those parts, 5-15 elements in total, built from basic shapes (circles, ellipses, triangles, rectangles, lines).",
   "",
   "Rules for good drawings:",
+  "- Order of drawing: draw major contours and base shapes first, followed by interior details and accents.",
   "- Use the most recognizable view (front or side), like a children's book icon.",
   "- Every part must touch or sit clearly next to the part it belongs to. No stray shapes floating around.",
   "- If a part is behind another, end the line where it meets the other shape instead of drawing through it.",
   "- If the subject is symmetric, mirror left and right around x=50.",
-  "- Add only 2-5 small details (eyes as circles with r=2, nose, mouth, windows, door). No scribbles, no shading.",
+  "- Add only 2-5 small details (eyes, nose, mouth, windows, door). No scribbles, no shading.",
+  "- Small round details (eyes, buttons, dots) must be EITHER a dot: a circle with r=1, OR a real circle with r=4 or more. Never use circles with r between 1.5 and 3.9: the marker is thick and they come out as blobs.",
+  "- Avoid any other detail smaller than 6 units. Prefer fewer, bigger shapes.",
   "- Keep proportions believable. Parts that attach to a shape (ears, chimney, legs, arms) must start exactly on its outline.",
   "",
   "Examples of the expected style and detail level. Do not copy them unless asked for the same subject.",
@@ -451,7 +552,7 @@ var SYSTEM_PROMPT = [
 
 var PROVEEDORES = {
   groq: { url: "https://api.groq.com/openai/v1", modelo: "openai/gpt-oss-120b" },
-  gemini: { url: "https://generativelanguage.googleapis.com/v1beta/openai", modelo: "gemini-3.5-flash-lite" },
+  gemini: { url: "https://generativelanguage.googleapis.com/v1beta/openai", modelo: "gemini-2.0-flash" },
   openrouter: { url: "https://openrouter.ai/api/v1", modelo: "nvidia/nemotron-3.5-lightning:free" },
   claude: { url: "https://api.anthropic.com/v1", modelo: "claude-sonnet-5-5" }
 };
@@ -481,7 +582,10 @@ var lienzo = document.getElementById("lienzo");
 var estado = document.getElementById("estado");
 var btnGenerar = document.getElementById("btnGenerar");
 var btnDibujar = document.getElementById("btnDibujar");
-var btnDescargar = document.getElementById("btnDescargar");
+var btnParar = document.getElementById("btnParar");
+var avisoRobot = document.getElementById("avisoRobot");
+var progreso = document.getElementById("progreso");
+var barraProgreso = document.getElementById("barraProgreso");
 var variantes = document.getElementById("variantes");
 var resultados = document.getElementById("resultados");
 var historial = document.getElementById("historial");
@@ -490,6 +594,22 @@ var panelAjustes = document.getElementById("panelAjustes");
 
 var svgActual = "";
 var obraActual = null;
+var dosColores = false;
+var AZUL = "#1f4fd8", ROJO = "#d62828", NEGRO = AZUL;   // sin color = rotulador azul (el primero)
+var REGLA_1_COLOR = "COLOR RULE: draw everything with stroke=\"black\".";
+var REGLA_2_COLORES = "COLOR RULE (overrides the stroke color above): use exactly two colors. stroke=\"blue\" for the main outline and big shapes, stroke=\"red\" for 1-3 accent details (for example ears, nose, mouth, roof, flower, heart). Draw all blue elements first, then all red elements last so the robot changes pens only once. Never use any other color.";
+
+/* Estado del robot (lo marca el servidor) */
+var robotOcupado = false;
+var temporizador = null;
+var fallosSeguidos = 0;
+var tituloDibujando = "";
+var MENSAJES = {
+  400: "El dibujo no es válido. Genera otro.",
+  409: "El robot ya está dibujando.",
+  422: "El dibujo sale del alcance del robot.",
+  503: "El robot no está conectado."
+};
 
 function mostrarEstado(texto, esError, tipo) {
   estado.textContent = texto;
@@ -502,10 +622,10 @@ function segundos(ms) { return (ms / 1000).toFixed(1).replace(".", ",") + " s"; 
 function guardarAjustes() {
   try {
     localStorage.setItem("robot_proveedor", proveedor.value);
-    localStorage.setItem("robot_modelo_v4", modelo.value);
+    localStorage.setItem("robot_modelo_v5", modelo.value);
     localStorage.setItem("robot_clave_" + proveedor.value, clave.value);
     localStorage.setItem("robot_url", urlRobot.value);
-    localStorage.setItem("robot_sistema_v3", sistema.value);
+    localStorage.setItem("robot_sistema_v5", sistema.value);
     localStorage.setItem("robot_variantes", variantes.value);
   } catch (e) {}
 }
@@ -523,12 +643,12 @@ function cargarAjustes() {
   try {
     proveedor.value = localStorage.getItem("robot_proveedor") || "groq";
     urlRobot.value = localStorage.getItem("robot_url") || urlRobot.value;
-    sistema.value = localStorage.getItem("robot_sistema_v3") || SYSTEM_PROMPT;
+    sistema.value = localStorage.getItem("robot_sistema_v5") || SYSTEM_PROMPT;
     variantes.value = localStorage.getItem("robot_variantes") || "4";
   } catch (e) {}
   cargarProveedor();
   try {
-    modelo.value = localStorage.getItem("robot_modelo_v4") || modelo.value;
+    modelo.value = localStorage.getItem("robot_modelo_v5") || modelo.value;
   } catch (e) {}
 }
 
@@ -567,18 +687,49 @@ function limpiarSvg(codigo) {
   svg.removeAttribute("width");
   svg.removeAttribute("height");
 
-  if (svg.querySelectorAll(FORMAS).length === 0) { return null; }
+  // Colores: solo los rotuladores que tenemos (rojo, y azul para lo demás; negro = 1 color)
+  var formas = svg.querySelectorAll(FORMAS);
+  for (var f = 0; f < formas.length; f++) {
+    var c = colorDe(formas[f]);
+    formas[f].setAttribute("stroke", c);
+    formas[f].style.stroke = c;
+  }
+
+  if (formas.length === 0) { return null; }
   return new XMLSerializer().serializeToString(svg);
+}
+
+function colorDe(el) {
+  var c = null;
+  for (var n = el; n && n.getAttribute; n = n.parentNode) {
+    c = n.getAttribute("stroke") || (n.style && n.style.stroke) || null;
+    if (c && c !== "none" && c !== "currentColor") { break; }
+    c = null;
+  }
+  if (!c) { return NEGRO; }
+  var ctx = colorDe.ctx || (colorDe.ctx = document.createElement("canvas").getContext("2d"));
+  ctx.fillStyle = "#000"; ctx.fillStyle = c;
+  var h = ctx.fillStyle;
+  if (h.charAt(0) !== "#" || h.length !== 7) { return NEGRO; }
+  var r = parseInt(h.substr(1, 2), 16), g = parseInt(h.substr(3, 2), 16), b = parseInt(h.substr(5, 2), 16);
+  if (Math.max(r, g, b) - Math.min(r, g, b) < 40) { return NEGRO; }
+  return (r > b && r > g) ? ROJO : AZUL;
 }
 
 function contarTrazos(svg) {
   return new DOMParser().parseFromString(svg, "image/svg+xml").querySelectorAll(FORMAS).length;
 }
 
-// Dibuja cada trazo en orden, como lo hará el brazo
+// Dibuja cada trazo en orden, agrupando por color como lo hará el brazo
 function trazar(contenedor, ritmo) {
   if (SIN_MOVIMIENTO || !Element.prototype.animate) { return; }
-  var els = contenedor.querySelectorAll(FORMAS);
+  var els = Array.from(contenedor.querySelectorAll(FORMAS));
+  // El brazo dibuja primero el rotulador principal (azul/negro) y luego los acentos (rojo)
+  els.sort(function (a, b) {
+    var ca = colorDe(a) === ROJO ? 1 : 0;
+    var cb = colorDe(b) === ROJO ? 1 : 0;
+    return ca - cb;
+  });
   var retraso = 150;
   for (var i = 0; i < els.length; i++) {
     var largo = 0;
@@ -599,14 +750,11 @@ async function pedirSvg(texto) {
     model: modelo.value.trim(),
     max_tokens: 4000,
     messages: [
-      { role: "system", content: sistema.value },
+      { role: "system", content: sistema.value + "\n\n" + (dosColores ? REGLA_2_COLORES : REGLA_1_COLOR) },
       { role: "user", content: texto }
     ]
   };
   if (proveedor.value === "groq" && cuerpo.model.indexOf("gpt-oss") !== -1) {
-    cuerpo.reasoning_effort = "low";
-  }
-  if (proveedor.value === "gemini") {
     cuerpo.reasoning_effort = "low";
   }
   var url = base + "/chat/completions";
@@ -625,7 +773,7 @@ async function pedirSvg(texto) {
     cuerpo = {
       model: modelo.value.trim(),
       max_tokens: 2000,
-      system: sistema.value,
+      system: sistema.value + "\n\n" + (dosColores ? REGLA_2_COLORES : REGLA_1_COLOR),
       messages: [{ role: "user", content: texto }]
     };
   }
@@ -715,7 +863,8 @@ async function generar(textoForzado) {
   var ultimoError = "";
   await Promise.all(huecos.map(function (hueco, indice) {
     return pedirSvg(texto).then(function (svg) {
-      var obra = { prompt: texto, svg: svg, ms: Date.now() - inicio, modelo: modelo.value.trim(), fecha: Date.now() };
+      var obra = { prompt: texto, svg: svg, ms: Date.now() - inicio, modelo: modelo.value.trim(), fecha: Date.now(),
+                   colores: dosColores ? 2 : 1 };
       var tarjeta = crearTarjeta(obra, indice + 1);
       rejilla.replaceChild(tarjeta, hueco);
       trazar(tarjeta, 2);
@@ -742,7 +891,7 @@ async function generar(textoForzado) {
     mostrarEstado((cuantos === 1 ? "Boceto listo" : "Listos") + " en " + total + ". Elige uno para dibujarlo.", false, "ok");
   }
   pintarHistorial();
-  btnGenerar.disabled = false;
+  btnGenerar.disabled = robotOcupado;
 }
 
 /* ===== Detalle ===== */
@@ -754,45 +903,141 @@ function abrirDetalle(obra) {
   document.getElementById("datoTrazos").textContent = contarTrazos(obra.svg);
   document.getElementById("datoModelo").textContent = obra.modelo || "—";
   document.getElementById("datoTiempo").textContent = obra.ms ? segundos(obra.ms) : "—";
-  document.getElementById("avisoRobot").textContent = "Lo que ves es exactamente lo que trazará el brazo.";
-  document.getElementById("avisoRobot").style.color = "";
-  btnDibujar.disabled = false;
-  btnDescargar.disabled = false;
+  if (!robotOcupado) {
+    avisoRobot.textContent = "Lo que ves es exactamente lo que trazará el brazo.";
+    avisoRobot.style.color = "";
+    progreso.hidden = true;
+  }
+  btnDibujar.disabled = robotOcupado;
+  btnParar.disabled = !robotOcupado;
   if (!detalle.open) { detalle.showModal(); }
   trazar(lienzo, 1);
+
+  if (!robotOcupado) {
+    fetch(urlBase() + "/preview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        svg: obra.svg,
+        opciones: (obra.colores === 2) ? {} : { un_color: true }
+      })
+    }).then(function (r) { return r.ok ? r.json() : null; }).then(function (datos) {
+      if (datos && datos.ok && datos.informe && obraActual === obra) {
+        document.getElementById("datoTrazos").textContent = datos.informe.trazos + " (en el robot)";
+        document.getElementById("datoTiempo").textContent = "~" + Math.round(datos.informe.duracion_s) + " s";
+      }
+    }).catch(function () {});
+  }
+}
+
+/* ===== Robot: dibujar, seguir el progreso y parar ===== */
+function urlBase() {
+  var u = urlRobot.value.trim().replace(/\/+$/, "").replace(/\/(draw|status|stop)$/, "");
+  return u || "http://localhost:8000";
+}
+
+function avisar(texto, color) {
+  avisoRobot.textContent = texto;
+  avisoRobot.style.color = color || "";
+}
+
+function ponerOcupado(ocupado) {
+  robotOcupado = ocupado;
+  btnDibujar.disabled = ocupado || svgActual === "";
+  btnGenerar.disabled = ocupado;
+  btnParar.disabled = !ocupado;
+  document.getElementById("btnVariaciones").disabled = ocupado;
+  btnDibujar.textContent = "Dibujar con el robot";
+  btnParar.textContent = "Parar";
+}
+
+function terminarDibujo(texto, esError) {
+  clearInterval(temporizador);
+  temporizador = null;
+  ponerOcupado(false);
+  avisar(texto, esError ? "var(--sinopia)" : "var(--verde)");
+  mostrarEstado(texto, esError, esError ? "" : "ok");
 }
 
 async function dibujar() {
-  if (svgActual === "") { return; }
-  var aviso = document.getElementById("avisoRobot");
-  btnDibujar.disabled = true;
-  btnDibujar.textContent = "Enviando…";
-  aviso.style.color = "";
+  if (svgActual === "" || robotOcupado) { return; }
+  tituloDibujando = obraActual ? obraActual.prompt : "";
+  ponerOcupado(true);
+  btnParar.disabled = true;               // hasta que el servidor confirme que ha empezado
+  btnDibujar.textContent = "Planificando…";
+  avisar("Planificando…");
+  progreso.hidden = false;
+  barraProgreso.style.width = "0%";
+  var respuesta;
   try {
-    var respuesta = await fetch(urlRobot.value.trim(), {
+    respuesta = await fetch(urlBase() + "/draw", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ svg: svgActual })
+      body: JSON.stringify({ svg: svgActual, titulo: tituloDibujando,
+                             opciones: (obraActual && obraActual.colores === 2) ? {} : { un_color: true } })
     });
-    if (!respuesta.ok) { throw new Error("El robot respondió " + respuesta.status + "."); }
-    aviso.textContent = "El brazo está dibujando. Mira el papel.";
-    aviso.style.color = "var(--verde)";
-    trazar(lienzo, 0.5);
   } catch (error) {
-    aviso.textContent = "No hay respuesta del robot en " + urlRobot.value + ". Comprueba que el script está en marcha. " + error.message;
-    aviso.style.color = "var(--sinopia)";
+    progreso.hidden = true;
+    terminarDibujo("No se pudo contactar con el robot. ¿Está en marcha servidor_robot.py en " + urlBase() + "?", true);
+    return;
   }
-  btnDibujar.textContent = "Dibujar con el robot";
-  btnDibujar.disabled = false;
+  var datos = {};
+  try { datos = await respuesta.json(); } catch (e) {}
+  if (!respuesta.ok) {
+    progreso.hidden = true;
+    terminarDibujo(MENSAJES[respuesta.status] || datos.error || ("El robot respondió " + respuesta.status + "."), true);
+    return;
+  }
+  var estimacion = datos.trazos + (datos.trazos === 1 ? " trazo" : " trazos") + " · ~" + Math.round(datos.duracion_s) + " s";
+  document.getElementById("datoTrazos").textContent = datos.trazos + " (lo que hará el brazo)";
+  btnDibujar.textContent = "Dibujando…";
+  btnParar.disabled = false;
+  avisar("Dibujando · " + estimacion, "var(--verde)");
+  mostrarEstado("El brazo está dibujando «" + tituloDibujando + "» (" + estimacion + ").", false, "ok");
+  fallosSeguidos = 0;
+  temporizador = setInterval(consultarEstado, 500);
 }
 
-function descargar() {
-  var blob = new Blob([svgActual], { type: "image/svg+xml" });
-  var enlace = document.createElement("a");
-  enlace.href = URL.createObjectURL(blob);
-  enlace.download = "dibujo.svg";
-  enlace.click();
-  URL.revokeObjectURL(enlace.href);
+async function consultarEstado() {
+  var datos;
+  try {
+    var r = await fetch(urlBase() + "/status");
+    datos = await r.json();
+    fallosSeguidos = 0;
+  } catch (error) {
+    fallosSeguidos++;
+    if (fallosSeguidos >= 6) { terminarDibujo("Se ha perdido la conexión con el robot.", true); }
+    return;
+  }
+  if (!temporizador) { return; }
+  var pct = Math.round((datos.progreso || 0) * 100);
+  if (datos.estado === "dibujando" || datos.estado === "planificando") {
+    barraProgreso.style.width = pct + "%";
+    var texto = "Trazo " + (datos.trazo_actual || 1) + " de " + (datos.trazos_total || "?") + " · " + pct + " %";
+    avisar(texto, "var(--verde)");
+    mostrarEstado("Dibujando «" + tituloDibujando + "»: " + texto, false, "ok");
+  } else if (datos.estado === "parando") {
+    avisar("Parando: levantando el rotulador…");
+  } else if (datos.estado === "terminado" || datos.estado === "libre") {
+    barraProgreso.style.width = "100%";
+    terminarDibujo("Terminado. Ya puedes coger tu dibujo.", false);
+  } else if (datos.estado === "parado") {
+    terminarDibujo("Dibujo detenido.", false);
+  } else if (datos.estado === "error") {
+    terminarDibujo("Error del robot: " + (datos.error || "desconocido") + ". El rotulador queda levantado.", true);
+  }
+}
+
+async function parar() {
+  btnParar.disabled = true;
+  btnParar.textContent = "Parando…";
+  try {
+    await fetch(urlBase() + "/stop", { method: "POST" });
+  } catch (error) {
+    btnParar.disabled = false;
+    btnParar.textContent = "Parar";
+    avisar("No se pudo contactar con el robot para pararlo. Usa la tecla de emergencia en el ordenador del robot.", "var(--sinopia)");
+  }
 }
 
 /* ===== Historial ===== */
@@ -851,7 +1096,7 @@ function elegirEjemplo(evento) {
 proveedor.addEventListener("change", function () { cargarProveedor(); guardarAjustes(); });
 btnGenerar.addEventListener("click", function () { generar(); });
 btnDibujar.addEventListener("click", dibujar);
-btnDescargar.addEventListener("click", descargar);
+btnParar.addEventListener("click", parar);
 document.getElementById("ejemplos").addEventListener("click", elegirEjemplo);
 urlRobot.addEventListener("change", guardarAjustes);
 sistema.addEventListener("change", guardarAjustes);
@@ -892,6 +1137,299 @@ document.getElementById("btnCerrar").addEventListener("click", function () { det
 [detalle, panelAjustes].forEach(function (d) {
   d.addEventListener("click", function (e) { if (e.target === d) { guardarAjustes(); d.close(); } });
 });
+
+function ponerColores(n) {
+  dosColores = n === 2;
+  var bs = document.querySelectorAll("#colores button");
+  for (var i = 0; i < bs.length; i++) { bs[i].setAttribute("aria-pressed", String(bs[i].dataset.colores === String(n))); }
+  try { localStorage.setItem("robot_colores", String(n)); } catch (e) {}
+}
+document.getElementById("colores").addEventListener("click", function (e) {
+  var b = e.target.closest("button");
+  if (b) { ponerColores(parseInt(b.dataset.colores, 10)); }
+});
+try { ponerColores(parseInt(localStorage.getItem("robot_colores") || "1", 10)); } catch (e) { ponerColores(1); }
+
+
+/* ===== Desde una imagen (opción extra) ===== */
+var IMG = { modo: "copiar", lista: false, svg: "", stream: null };
+var MODELOS_VISION = { gemini: "gemini-2.0-flash", claude: "claude-sonnet-5-5", openrouter: "google/gemini-2.0-flash-001", groq: "meta-llama/llama-4-scout-17b-16e-instruct" };
+var PROMPT_FOTO = [
+  "You turn a photo into simple, charming line art as SVG for a robot arm that draws with a thick marker on paper.",
+  "Reply with ONLY the SVG code. No explanations, no markdown fences.",
+  "Canvas: <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">. Keep the drawing inside 15-85 on both axes, centered.",
+  "Allowed elements: circle, ellipse, rect, line, polyline, polygon, path (only absolute M, L, C, Q, Z). Always fill=\"none\". Integer coordinates.",
+  "Draw the main subject only, like a friendly cartoon portrait: outline of the face and hair, eyes, nose, mouth, ears, glasses or beard if present, neck and shoulders. If it is not a person, draw the main object the same way.",
+  "Capture what makes it recognizable (hair shape, glasses, beard, hat, expression) but keep it simple: 8-20 elements, smooth curves, no shading, no hatching, no background.",
+  "Eyes: either a dot (circle r=1) or a circle with r=4 or more. Never circles with r between 1.5 and 3.9. Avoid details smaller than 6 units.",
+  "Draw the big outlines first and the small details last."
+].join("\n");
+function $i(id) { return document.getElementById(id); }
+
+function imgModeloVision() {
+  try { return localStorage.getItem("robot_modelo_vision_" + proveedor.value) || MODELOS_VISION[proveedor.value]; }
+  catch (e) { return MODELOS_VISION[proveedor.value]; }
+}
+function imgPonerModo(m) {
+  IMG.modo = m;
+  document.querySelectorAll("#imgModos button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.modo === m)); });
+  $i("imgAjustesCopiar").hidden = m !== "copiar";
+  $i("imgAjustesIA").hidden = m !== "ia";
+  $i("imgModeloVision").value = imgModeloVision();
+  $i("imgExplicacion").textContent = m === "copiar"
+    ? "Para dibujos, iconos o logos de líneas oscuras sobre fondo claro: el robot copia las líneas tal cual. Sin internet."
+    : "Para fotos de personas (o mascotas, objetos): la IA hace un retrato sencillo en líneas. Usa el proveedor y la clave de Ajustes, y el selector 1 color / 2 colores de la página.";
+  $i("imgArchivoCamara").setAttribute("capture", m === "ia" ? "user" : "environment");
+  if (IMG.lista && m === "copiar") { imgConvertir(); }
+}
+function imgUsarArchivo(f) {
+  if (!f || !/^image\//.test(f.type)) { $i("imgAviso").textContent = "Eso no es una imagen."; return; }
+  imgPararCamara();
+  var r = new FileReader();
+  r.onload = function () { imgPonerImagen(r.result); };
+  r.readAsDataURL(f);
+}
+function imgPonerImagen(src) {
+  var im = $i("imgEntrada");
+  im.onload = function () {
+    IMG.lista = true;
+    im.hidden = false; $i("imgVideo").hidden = true; $i("imgVacio").hidden = true;
+    $i("btnImgConvertir").disabled = false;
+    if (IMG.modo === "copiar") { imgConvertir(); } else { $i("imgAviso").textContent = "Pulsa «Convertir» para que la IA haga el retrato."; }
+  };
+  im.src = src;
+}
+async function imgAbrirCamara() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { $i("imgArchivoCamara").click(); return; }
+  try {
+    IMG.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: IMG.modo === "ia" ? "user" : "environment", width: { ideal: 1280 } }, audio: false });
+    var v = $i("imgVideo");
+    v.srcObject = IMG.stream; v.hidden = false; $i("imgEntrada").hidden = true; $i("imgVacio").hidden = true;
+    $i("btnImgFoto").hidden = false;
+    $i("imgAviso").textContent = "Colócate y pulsa «Hacer la foto».";
+  } catch (e) {
+    $i("imgAviso").textContent = "No se pudo abrir la cámara (" + e.name + "). Usa «Subir imagen».";
+    $i("imgArchivoCamara").click();
+  }
+}
+function imgHacerFoto() {
+  var v = $i("imgVideo"), c = document.createElement("canvas");
+  c.width = v.videoWidth; c.height = v.videoHeight;
+  var ctx = c.getContext("2d");
+  if (IMG.modo === "ia") { ctx.translate(c.width, 0); ctx.scale(-1, 1); }
+  ctx.drawImage(v, 0, 0);
+  imgPararCamara();
+  imgPonerImagen(c.toDataURL("image/jpeg", 0.9));
+}
+function imgPararCamara() {
+  if (IMG.stream) { IMG.stream.getTracks().forEach(function (t) { t.stop(); }); IMG.stream = null; }
+  $i("btnImgFoto").hidden = true; $i("imgVideo").hidden = true;
+}
+function imgMostrar(svg) {
+  IMG.svg = svg;
+  $i("imgSalida").innerHTML = svg || "<span>Aquí aparecerá el dibujo en líneas.</span>";
+  $i("btnImgUsar").disabled = !svg;
+}
+function imgConvertir() { if (IMG.lista) { if (IMG.modo === "copiar") { imgLocal(); } else { imgIA(); } } }
+
+/* --- Imagen sencilla: esqueleto de las líneas, en el navegador --- */
+function imgLocal() {
+  var im = $i("imgEntrada"), MAX = 320;
+  var e = Math.min(1, MAX / Math.max(im.naturalWidth, im.naturalHeight));
+  var w = Math.max(8, Math.round(im.naturalWidth * e)), h = Math.max(8, Math.round(im.naturalHeight * e));
+  var c = document.createElement("canvas"); c.width = w; c.height = h;
+  var ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); ctx.drawImage(im, 0, 0, w, h);
+  var d = ctx.getImageData(0, 0, w, h).data, g = new Float32Array(w * h), i;
+  for (i = 0; i < w * h; i++) { g[i] = 0.299 * d[4 * i] + 0.587 * d[4 * i + 1] + 0.114 * d[4 * i + 2]; }
+  if ($i("imgInvertir").checked) { for (i = 0; i < w * h; i++) { g[i] = 255 - g[i]; } }
+  g = imgDesenfocar(g, w, h);
+  var u = parseInt($i("imgUmbral").value, 10);
+  if (!u) { u = imgOtsu(g); $i("imgVUmbral").textContent = "auto (" + u + ")"; } else { $i("imgVUmbral").textContent = u; }
+  var b = new Uint8Array(w * h);
+  for (i = 0; i < w * h; i++) { b[i] = g[i] < u ? 1 : 0; }
+  imgAdelgazar(b, w, h);
+  var minimo = parseInt($i("imgMinimo").value, 10); $i("imgVMinimo").textContent = minimo;
+  var trazos = imgSeguir(b, w, h).filter(function (t) { return imgLargo(t) >= minimo; })
+    .map(function (t) { return imgSimplificar(imgSuavizar(t, 3), 0.35); });
+  if (!trazos.length) { imgMostrar(""); $i("imgAviso").textContent = "No he encontrado líneas. Mueve «Oscuridad de las líneas»."; return; }
+  var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  trazos.forEach(function (t) { t.forEach(function (q) { x0 = Math.min(x0, q[0]); y0 = Math.min(y0, q[1]); x1 = Math.max(x1, q[0]); y1 = Math.max(y1, q[1]); }); });
+  var lado = Math.max(x1 - x0, y1 - y0, 1), ox = (lado - (x1 - x0)) / 2 - x0, oy = (lado - (y1 - y0)) / 2 - y0, s = 70 / lado;
+  var partes = trazos.map(function (t) {
+    return '<path d="' + t.map(function (q, k) { return (k ? "L" : "M") + (15 + (q[0] + ox) * s).toFixed(1) + " " + (15 + (q[1] + oy) * s).toFixed(1); }).join(" ") +
+      '" fill="none" stroke="' + AZUL + '" style="stroke:' + AZUL + '"/>';
+  });
+  var puntos = trazos.reduce(function (a, t) { return a + t.length; }, 0);
+  imgMostrar('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' + partes.join("") + "</svg>");
+  $i("imgAviso").textContent = trazos.length + " trazos · " + puntos + " puntos" + (trazos.length > 120 ? ". Son muchos: sube «Quitar trazos pequeños»." : ".");
+}
+function imgDesenfocar(g, w, h) {
+  var o = new Float32Array(w * h);
+  for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
+    var s = 0, n = 0;
+    for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) {
+      var xx = x + dx, yy = y + dy;
+      if (xx >= 0 && yy >= 0 && xx < w && yy < h) { s += g[yy * w + xx]; n++; }
+    }
+    o[y * w + x] = s / n;
+  }
+  return o;
+}
+function imgOtsu(g) {
+  var hist = new Array(256).fill(0), n = g.length, i;
+  for (i = 0; i < n; i++) { hist[Math.max(0, Math.min(255, g[i] | 0))]++; }
+  var tot = 0; for (i = 0; i < 256; i++) { tot += i * hist[i]; }
+  var sB = 0, wB = 0, mejor = 0, um = 128;
+  for (i = 0; i < 256; i++) {
+    wB += hist[i]; if (!wB) continue;
+    var wF = n - wB; if (!wF) break;
+    sB += i * hist[i];
+    var mB = sB / wB, mF = (tot - sB) / wF, v = wB * wF * (mB - mF) * (mB - mF);
+    if (v > mejor) { mejor = v; um = i; }
+  }
+  return um;
+}
+function imgAdelgazar(b, w, h) {        // Zhang-Suen: líneas de 1 píxel (una pasada de rotulador)
+  function p(x, y) { return (x < 0 || y < 0 || x >= w || y >= h) ? 0 : b[y * w + x]; }
+  var cambia = true, borrar = [];
+  while (cambia) {
+    cambia = false;
+    for (var paso = 0; paso < 2; paso++) {
+      borrar.length = 0;
+      for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
+        if (!b[y * w + x]) continue;
+        var v = [p(x, y - 1), p(x + 1, y - 1), p(x + 1, y), p(x + 1, y + 1), p(x, y + 1), p(x - 1, y + 1), p(x - 1, y), p(x - 1, y - 1)];
+        var B = v[0] + v[1] + v[2] + v[3] + v[4] + v[5] + v[6] + v[7];
+        if (B < 2 || B > 6) continue;
+        var A = 0; for (var k = 0; k < 8; k++) { if (!v[k] && v[(k + 1) % 8]) A++; }
+        if (A !== 1) continue;
+        if (paso === 0 ? (v[0] * v[2] * v[4] === 0 && v[2] * v[4] * v[6] === 0) : (v[0] * v[2] * v[6] === 0 && v[0] * v[4] * v[6] === 0)) { borrar.push(y * w + x); }
+      }
+      for (var j = 0; j < borrar.length; j++) { b[borrar[j]] = 0; }
+      if (borrar.length) { cambia = true; }
+    }
+  }
+}
+function imgSeguir(b, w, h) {
+  var vis = new Uint8Array(w * h), trazos = [], V = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]];
+  function vec(i) {
+    var x = i % w, y = (i / w) | 0, o = [];
+    for (var k = 0; k < 8; k++) { var xx = x + V[k][0], yy = y + V[k][1]; if (xx >= 0 && yy >= 0 && xx < w && yy < h && b[yy * w + xx]) o.push(yy * w + xx); }
+    return o;
+  }
+  function seguir(i) {
+    var t = [[i % w, (i / w) | 0]]; vis[i] = 1;
+    while (true) { var sig = vec(i).filter(function (j) { return !vis[j]; }); if (!sig.length) break; i = sig[0]; vis[i] = 1; t.push([i % w, (i / w) | 0]); }
+    return t;
+  }
+  var i;
+  for (i = 0; i < w * h; i++) { if (b[i] && !vis[i] && vec(i).length === 1) trazos.push(seguir(i)); }
+  for (i = 0; i < w * h; i++) { if (b[i] && !vis[i]) { var t = seguir(i); if (t.length > 2) t.push(t[0]); trazos.push(t); } }
+  return trazos;
+}
+function imgSuavizar(t, r) {
+  if (t.length < 5) return t;
+  var n = t.length, cerr = t[0][0] === t[n - 1][0] && t[0][1] === t[n - 1][1], o = [];
+  for (var i = 0; i < n; i++) {
+    if (!cerr && (i === 0 || i === n - 1)) { o.push(t[i]); continue; }
+    var sx = 0, sy = 0, c = 0;
+    for (var k = -r; k <= r; k++) {
+      var j = i + k;
+      if (cerr) { j = ((j % (n - 1)) + (n - 1)) % (n - 1); } else if (j < 0 || j >= n) { continue; }
+      sx += t[j][0]; sy += t[j][1]; c++;
+    }
+    o.push([sx / c, sy / c]);
+  }
+  if (cerr) { o[n - 1] = o[0]; }
+  return o;
+}
+function imgLargo(t) { var L = 0; for (var i = 1; i < t.length; i++) { L += Math.hypot(t[i][0] - t[i - 1][0], t[i][1] - t[i - 1][1]); } return L; }
+function imgSimplificar(p, tol) {
+  if (p.length < 3) return p;
+  var a = p[0], b = p[p.length - 1], dx = b[0] - a[0], dy = b[1] - a[1], n = Math.hypot(dx, dy), mx = -1, im = 0;
+  for (var i = 1; i < p.length - 1; i++) {
+    var d = n ? Math.abs(dx * (p[i][1] - a[1]) - dy * (p[i][0] - a[0])) / n : Math.hypot(p[i][0] - a[0], p[i][1] - a[1]);
+    if (d > mx) { mx = d; im = i; }
+  }
+  if (mx > tol) { return imgSimplificar(p.slice(0, im + 1), tol).slice(0, -1).concat(imgSimplificar(p.slice(im), tol)); }
+  return [a, b];
+}
+
+/* --- Foto de una persona: la IA hace el retrato (proveedor y clave de Ajustes) --- */
+async function imgIA() {
+  guardarAjustes();
+  var prov = proveedor.value, key = clave.value.trim(), mod = $i("imgModeloVision").value.trim();
+  try { localStorage.setItem("robot_modelo_vision_" + prov, mod); } catch (e) {}
+  if (!key) { $i("imgAviso").textContent = "Falta la API key: ponla en Ajustes."; return; }
+  var im = $i("imgEntrada"), e = Math.min(1, 1024 / Math.max(im.naturalWidth, im.naturalHeight));
+  var c = document.createElement("canvas"); c.width = Math.round(im.naturalWidth * e); c.height = Math.round(im.naturalHeight * e);
+  var cx = c.getContext("2d"); cx.fillStyle = "#fff"; cx.fillRect(0, 0, c.width, c.height); cx.drawImage(im, 0, 0, c.width, c.height);
+  var datos = c.toDataURL("image/jpeg", 0.85);
+  var sis = PROMPT_FOTO + "\n\n" + (dosColores ? REGLA_2_COLORES : REGLA_1_COLOR), pide = "Draw this photo as simple line art following the rules.";
+  var url, cab, cuerpo, t0 = Date.now();
+  if (prov === "claude") {
+    url = PROVEEDORES.claude.url + "/messages";
+    cab = { "Content-Type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" };
+    cuerpo = { model: mod, max_tokens: 3000, system: sis, messages: [{ role: "user", content: [
+      { type: "image", source: { type: "base64", media_type: "image/jpeg", data: datos.split(",")[1] } }, { type: "text", text: pide }] }] };
+  } else {
+    url = PROVEEDORES[prov].url + "/chat/completions";
+    cab = { "Content-Type": "application/json", "Authorization": "Bearer " + key };
+    cuerpo = { model: mod, max_tokens: 4000, messages: [{ role: "system", content: sis },
+      { role: "user", content: [{ type: "text", text: pide }, { type: "image_url", image_url: { url: datos } }] }] };
+  }
+  $i("btnImgConvertir").disabled = true;
+  $i("imgAviso").textContent = "La IA está dibujando el retrato…";
+  try {
+    var r = await fetch(url, { method: "POST", headers: cab, body: JSON.stringify(cuerpo) });
+    if (!r.ok) { throw new Error("El proveedor respondió " + r.status + ": " + (await r.text()).slice(0, 160)); }
+    var j = await r.json(), txt = "";
+    if (prov === "claude") { (j.content || []).forEach(function (bl) { if (bl.type === "text") txt += bl.text; }); }
+    else { txt = (j.choices && j.choices[0].message.content) || ""; }
+    var cod = extraerSvg(txt), limpio = cod && limpiarSvg(cod);
+    if (!limpio) { throw new Error("La IA no devolvió un dibujo válido. Pulsa «Convertir» otra vez."); }
+    imgMostrar(limpio);
+    $i("imgAviso").textContent = "Retrato listo en " + segundos(Date.now() - t0) + ".";
+  } catch (err) { $i("imgAviso").textContent = err.message; }
+  $i("btnImgConvertir").disabled = false;
+}
+
+/* --- Pasar el dibujo al historial y abrir la ficha de siempre --- */
+function imgUsar() {
+  if (!IMG.svg) return;
+  var ia = IMG.modo === "ia";
+  var obra = { prompt: ia ? "retrato desde una foto" : "copia de una imagen", svg: limpiarSvg(IMG.svg) || IMG.svg, ms: 0,
+               modelo: ia ? $i("imgModeloVision").value.trim() : "imagen (sin IA)", fecha: Date.now(),
+               colores: (ia && dosColores) ? 2 : 1 };
+  guardarEnHistorial(obra);
+  pintarHistorial();
+  imgPararCamara();
+  $i("panelImagen").close();
+  abrirDetalle(obra);
+}
+
+$i("btnImagen").addEventListener("click", function () { imgPonerModo(IMG.modo); $i("panelImagen").showModal(); });
+$i("btnCerrarImagen").addEventListener("click", function () { imgPararCamara(); $i("panelImagen").close(); });
+$i("btnImgSubir").addEventListener("click", function () { $i("imgArchivo").click(); });
+$i("imgArchivo").addEventListener("change", function (e) { imgUsarArchivo(e.target.files[0]); e.target.value = ""; });
+$i("imgArchivoCamara").addEventListener("change", function (e) { imgUsarArchivo(e.target.files[0]); e.target.value = ""; });
+$i("btnImgCamara").addEventListener("click", imgAbrirCamara);
+$i("btnImgFoto").addEventListener("click", imgHacerFoto);
+$i("btnImgConvertir").addEventListener("click", imgConvertir);
+$i("btnImgUsar").addEventListener("click", imgUsar);
+$i("imgModos").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) imgPonerModo(b.dataset.modo); });
+["imgUmbral", "imgMinimo", "imgInvertir"].forEach(function (id) { $i(id).addEventListener("input", function () { if (IMG.modo === "copiar" && IMG.lista) imgLocal(); }); });
+(function () {
+  var m = $i("imgMarco");
+  ["dragenter", "dragover"].forEach(function (ev) { m.addEventListener(ev, function (e) { e.preventDefault(); m.classList.add("arrastrando"); }); });
+  ["dragleave", "drop"].forEach(function (ev) { m.addEventListener(ev, function (e) { e.preventDefault(); m.classList.remove("arrastrando"); }); });
+  m.addEventListener("drop", function (e) { imgUsarArchivo(e.dataTransfer.files[0]); });
+  document.addEventListener("paste", function (e) {
+    if (!$i("panelImagen").open) return;
+    var it = Array.from(e.clipboardData.items || []).find(function (x) { return x.type.indexOf("image") === 0; });
+    if (it) imgUsarArchivo(it.getAsFile());
+  });
+})();
 
 cargarAjustes();
 pintarHistorial();
