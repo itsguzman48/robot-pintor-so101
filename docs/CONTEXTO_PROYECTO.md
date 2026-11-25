@@ -1,11 +1,9 @@
 # Robot pintor SO-101 — contexto completo del proyecto
 
 Equipo **CapillaSixt.IA** · Hackathon LeRobot Bilbao II (Physical AI Hackathon), La Perrera, 20–22 nov 2026.
-Entrega: domingo 22 a las 11:00 (presentación, dataset y código) y luego 5 min de presentación.
 
-> Este documento es para que un asistente de IA (o una persona nueva) entienda el proyecto sin
-> tener que reconstruirlo. Está escrito en español, igual que el código y los comentarios.
-> Estado a sábado 21/11, 19:45.
+> Documentación técnica del proyecto: cómo funciona, qué hace cada archivo, cómo se usa y qué
+> aprendimos. Refleja el estado del proyecto al terminar el hackathon.
 
 ---
 
